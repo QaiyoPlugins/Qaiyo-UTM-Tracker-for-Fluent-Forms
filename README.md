@@ -1,6 +1,6 @@
 # Qaiyo UTM Tracker for Fluent Forms
 
-> Every Fluent Forms entry shows which ad or campaign brought the lead: the UTM parameters of the landing page and the Google Ads click ID, kept across pages and days, with Google Ads auto-tagged clicks recorded as `google` / `cpc` even when the link carries no UTM at all.
+> Every Fluent Forms entry shows which ad or campaign brought the lead: the UTM parameters of the landing page (Meta / Facebook Ads and any other tagged link) and the Google Ads click ID, kept across pages and days, with Google Ads auto-tagged clicks recorded as `google` / `cpc` even when the link carries no UTM at all.
 
 [![WordPress 6.5+](https://img.shields.io/badge/WordPress-6.5%2B-21759b.svg)](https://wordpress.org/)
 [![PHP 7.4+](https://img.shields.io/badge/PHP-7.4%2B-777bb4.svg)](https://www.php.net/)
@@ -51,6 +51,15 @@ This plugin closes both gaps:
   the form. No `MutationObserver`, no polling, no jQuery dependency.
 - Values are stripped of control characters and capped at 500 characters.
 - Works with full-page caching: everything happens in the browser.
+
+### Meta (Facebook / Instagram) Ads
+
+- Needs no special handling: Meta appends the UTM parameters set on the ad (for example
+  `utm_source=facebook&utm_medium=cpc&utm_campaign=…&utm_content={{ad.id}}`) to the landing URL, and
+  the capture script stores them like any other tagged link.
+- Verified live: a Facebook link with all four parameters was stored exactly as sent, and it replaced
+  the click ID of an earlier Google Ads visit (last touch wins).
+- Nothing is inferred for Meta: with no UTM parameters on the ad link, the source stays empty.
 
 ### Google Ads detection (server)
 
